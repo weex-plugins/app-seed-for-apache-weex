@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <navbar title="Profile"></navbar>
-    <scroller class="map">
+    <scroller class="main">
       <div class="profile-bannar">
         <image class="profile-avatar" :src="user.avatar"></image>
         <text class="profile-username">{{user.username}}</text>
@@ -13,8 +13,9 @@
         <div class="profile-groups-item">
           <text class="">{{user.cellphone}} </text>
         </div>
-        <div class="profile-groups-item">
-          <text class="">{{user.address}}  </text>
+        <div class="profile-groups-item" @click="openMap()">
+          <text class="profile-item-text">{{user.address}}  </text>
+          <icon src="http://img1.vued.vanthink.cn/vuedef837912bd199882fd65556b65287ebb.png"></icon>
         </div>
       </div>
       <div class="profile-groups">
@@ -40,10 +41,9 @@
         </div>
       </div>
     </scroller>
-    <footer ative="3"></footer>
+    <footer active="3"></footer>
   </div>
 </template>
-
 <style>
   .container{
     position: relative;
@@ -52,7 +52,7 @@
     background-color: #e3e3e3;
     padding-top: 88px;
   }
-  .map{
+  .main{
     flex: 1;
     position: relative;
     background-color: #e3e3e3;
@@ -87,22 +87,28 @@
     border-bottom: 2px solid rgba(0,0,0,.3);
   }
   .profile-groups-item{
+    flex-direction: row;
+    align-items: center;
     height: 90px;
-    justify-content: center;
     border-bottom: 2px solid rgba(0,0,0,.1);
     color: #555;
+  }
+  .profile-item-text{
+    flex: 1;
   }
 </style>
 
 <script>
   import navbar from './include/navbar.vue';
   import footer from './include/footer.vue';
-  import loadingItem from './include/loading-list-item.vue';
+  import icon from './include/icon.vue';
+  import helper from './lib/helper';
+  const naviagtor = weex.requireModule('navigator');
   module.exports = {
     components: {
       'navbar': navbar,
       'footer': footer,
-      'loading-item': loadingItem
+      'icon': icon
     },
     data() {
       return {
@@ -116,12 +122,11 @@
       }
     },
     methods: {
-      change(event) {
-        this.place = event.value;
-      },
-      
-      changeType(q) {
-        this.type = q;
+      openMap() {
+        const url = helper.setBundleUrl('pages/map.js', weex);
+        navigator.push({
+          url: url
+        })
       }
     }
   }

@@ -8,3 +8,14 @@
     height: 54px;
   }
 </style>
+
+<script>
+export default {
+  props: {
+    src: {
+      default: '',
+    }
+  }
+};
+
+</script>

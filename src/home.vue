@@ -2,7 +2,7 @@
   <div class="container">
     <navbar title="WEEX-APP-START-KIT"></navbar>
     <scroller class="map">
-      <loading-item v-for="item in list" :key="item.id"></loading-item>
+      <loading-item v-for="item in list" :key="item.id" url="./pages/article.js"></loading-item>
     </scroller>
     <footer active="0"></footer>
   </div>

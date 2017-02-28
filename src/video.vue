@@ -6,7 +6,7 @@
       <h3 contents="Recomand"></h3>
       <video-list :items="recList"></video-list>
     </scroller>
-    <footer ative="2"></footer>
+    <footer active="2"></footer>
   </div>
 </template>
 
@@ -106,13 +106,6 @@
       }
     },
     methods: {
-      change(event) {
-        this.place = event.value;
-      },
-      
-      changeType(q) {
-        this.type = q;
-      }
     }
   }
 </script>

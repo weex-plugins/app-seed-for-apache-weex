@@ -1,5 +1,5 @@
 <template>
-  <div class="article">
+  <div class="article" @click="">
     <div>
       <image class="article-bannar" src="http://img1.vued.vanthink.cn/vuedc433556ffc003cdc182a79d7114f6314.png"></image>  
     </div>
@@ -97,6 +97,11 @@ export default {
       contents: 'Different from "web app" , "HTML5 app" and "hybrid app", you can use Weex to build a real mobile app. More intimate is that you write the code is relatively simple, just use HTML, CSS, Javascript can build native applications.But in fact, the bottom of the application is Objective-C or Java. At the same time, Weex will provide a lot of native components or modules for developers to use.',
       comments: '11.4K',
       love: '12K'
+    }
+  },
+  methods: {
+    read() {
+      cp
     }
   }
 };
