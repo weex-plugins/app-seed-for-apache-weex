@@ -8,6 +8,17 @@
       </div>
       <div class="profile-groups">
         <div class="profile-groups-item">
+          <text class="">{{user.email}}</text>
+        </div>
+        <div class="profile-groups-item">
+          <text class="">{{user.cellphone}} </text>
+        </div>
+        <div class="profile-groups-item">
+          <text class="">{{user.address}}  </text>
+        </div>
+      </div>
+      <div class="profile-groups">
+        <div class="profile-groups-item">
           <text class="">Account</text>
         </div>
         <div class="profile-groups-item">
@@ -97,7 +108,10 @@
       return {
         user: {
           avatar: 'http://img1.vued.vanthink.cn/vued4eff4743ed47b7d8add8e7969a5d16cd.png',
-          username: 'Tom'
+          username: 'Tom',
+          email: 'tom@gamil.com',
+          cellphone: '+86 12345678912',
+          address: 'Beijing China'
         }
       }
     },
