@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <div v-if="leftCorner" class="btn-icon-left" @click="goHome">
-      <image class="btn-arrow-left" src="leftCorner.src"></image>
+      <image class="btn-arrow-left" :src="leftCorner.src"></image>
       <text class="btn-text">{{leftCorner.text}}</text>
     </div>
     <div v-if="back" class="btn-icon-left" @click="goHome">
@@ -64,7 +64,11 @@
       title: {
         default: 'Title',
         type: String
-      }
+      },
+      back: {
+        default: false,
+        type: Boolean 
+     }
     },
     methods: {
       goHome() {
