@@ -34,7 +34,7 @@ cd first_weex_app && npm install  // 进入目录执行完依赖安装
 接下来使用 ** weex-app-start-kit ** 插件
 
 ``` bash 
-weexpack add plugin add weex-app-start-kit
+weexpack plugin add weex-app-start-kit
 ```
 
 插件安装成功后执行一段demo的复制脚本 node ./plugins/weex-app-start-kit/tools/copy.js
