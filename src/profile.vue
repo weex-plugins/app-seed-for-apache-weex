@@ -29,7 +29,7 @@
         </div>
       </div>
     </scroller>
-    <footer ative="4"></footer>
+    <footer ative="3"></footer>
   </div>
 </template>
 

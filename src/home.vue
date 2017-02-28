@@ -2,9 +2,9 @@
   <div class="container">
     <navbar title="WEEX-APP-START-KIT"></navbar>
     <scroller class="map">
-      <loading-item v-for="item in list"></loading-item>
+      <loading-item v-for="item in list" :key="item.id"></loading-item>
     </scroller>
-    <footer></footer>
+    <footer active="0"></footer>
   </div>
 </template>
 
@@ -19,6 +19,7 @@
     flex: 1;
     position: relative;
     background-color: #e3e3e3;
+    padding-top: 88px;
     min-height: 400;
     border-bottom-width: 10;
     border-bottom-color: #fff;
@@ -40,6 +41,18 @@
       return {
         list:[
           {
+            id: '1',
+            user: {
+              avatar: '',
+              username: ''
+            },
+            contents: {
+              
+            }
+          },
+          
+          {
+            id: '2',
             user: {
               avatar: '',
               username: ''
@@ -49,15 +62,7 @@
             }
           },
           {
-            user: {
-              avatar: '',
-              username: ''
-            },
-            contents: {
-              
-            }
-          },
-          {
+            id: '3',
             user: {
               avatar: '',
               username: ''

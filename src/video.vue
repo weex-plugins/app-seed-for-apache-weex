@@ -6,7 +6,7 @@
       <h3 contents="Recomand"></h3>
       <video-list :items="recList"></video-list>
     </scroller>
-    <footer ative="4"></footer>
+    <footer ative="2"></footer>
   </div>
 </template>
 

@@ -6,7 +6,7 @@
 
 <style>
   .loading-item{
-    height: 520px;
+    height: 360px;
     margin: 20px;
     margin-bottom: 0px;
     background-color: #fff;

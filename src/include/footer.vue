@@ -1,9 +1,9 @@
 <template>
 <div class="footer">
-  <div class="footer-item" v-for="item in items" @click="changeType('电影')">
+  <div class="footer-item" v-for="(item, index) in items" :key="item.url" @click="changeUrl(index)">
     <image class="footer-item-icon" :src="item.icon"></image>
-    <text v-if="type!='电影'" class="btn-sm-text">{{item.name}}</text>
-    <text v-if="type =='电影'" class="btn-sm-text active">{{item.name}}</text>
+    <text v-if="active!=index" class="btn-sm-text">{{item.name}}</text>
+    <text v-if="active==index" class="btn-sm-text active">{{item.name}}</text>
   </div>
 </div>
 </template>
@@ -43,7 +43,15 @@
 </style>
 
 <script>
+import helper from '../lib/helper';
+const navigator = weex.requireModule('navigator'); 
+  
 export default {
+  props: {
+    active: {
+      default: 0,
+    }
+  },
   data() {
     return {
       type: '',
@@ -73,8 +81,13 @@ export default {
   },
   
   methods: {
-    changeType(q) {
-      this.type = q;
+    changeUrl(index) {
+      console.log(this.items[index].url);
+      const url = helper.setBundleUrl(this.items[index].url, weex);
+      console.log(url);
+      navigator.push({
+        url: url
+      });
     }
   }
 };

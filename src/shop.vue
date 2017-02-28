@@ -1,33 +1,11 @@
 <template>
   <div class="container">
-    <navbar title="地图搜索"></navbar>
-    <weex-amap class="map" id="map2017" :search="search" :sdk-key="keys" :zoom=zoom :center="pos">
-      <weex-amap-marker :position="marker.position" :title="marker.title" v-for="marker in markers"></weex-amap-marker>
-    </weex-amap>
-    <div class="map-search">
-      <input class="input" @change="change" placeholder="Search Places..."/>
-      <div class="btn-search" @click="searchEvent">
-        <image style="width:60;height:60;" src="http://img1.vued.vanthink.cn/vuedea56601586fafc6cb665126938506b35.png"></image>
-      </div>
+    <search-bar></search-bar>
+    <tabbar :items="tabs"></tabbar>
+    <div class="map">
+      <box-item v-for="item in list" :key="item.id" :name="item.name" :share-count="item.shareCount"></box-item>
     </div>
-    <div class="map-bttom-bar">
-      <div class="btn-sm" @click="changeType('电影')">
-        <text v-if="type!='电影'" class="btn-sm-text">电影</text>
-        <text v-if="type =='电影'" class="btn-sm-text active">电影</text>
-      </div>
-      <div class="btn-sm" onclick="changeType('ATM')">
-        <text v-if="type!='ATM'" class="btn-sm-text">ATM</text>
-        <text v-if="type =='ATM'" class="btn-sm-text active">ATM</text>
-      </div>
-      <div class="btn-sm" onclick="changeType('快餐')">
-        <text v-if="type!='快餐'" class="btn-sm-text">快餐</text>
-        <text v-if="type =='快餐'" class="btn-sm-text active">快餐</text>
-      </div>
-      <div class="btn-sm" onclick="changeType('酒店')">
-        <text v-if="type!='酒店'" class="btn-sm-text">酒店</text>
-        <text v-if="type =='酒店'" class="btn-sm-text active">酒店</text>
-      </div>
-    </div>
+    <footer active="1"></footer>
   </div>
 </template>
 
@@ -36,95 +14,54 @@
     position: relative;
     flex:1;
     flex-direction: column;
-    background-color: #fff;
-  }
-  .map-search{
-    flex-direction: row;
-    align-items: center;
-    position: absolute;
-    top: 108;
-    left:20;
-    right: 20;
-    height: 88;
-    padding-left: 10;
-    background-color: #fff;
-    border-radius: 5;
-    border-bottom-width: 2;
-    border-right-width: 1;
-    border-color: rgba(0,0,0,.2);
-  }
-  
-  .input{
-    flex: 1;
-    background-color: #fff;
-    height: 70;
-    margin-top: 9;
-    font-size: 30;
-  }
-  .btn-search{
-    justify-content: center;
-    align-self: flex-end;
-    width: 88;
-    height: 88;
+    padding-top: 88px;
+    background-color: #e3e3e3;
   }
   .map{
     flex: 1;
-    position: relative;
-    background-color: #fff;
-    min-height: 400;
-    border-bottom-width: 10;
-    border-bottom-color: #fff;
-  }
-  .map-bttom-bar{
     flex-direction: row;
-    align-items: center;
-    z-index: 200;
-    position:absolute;
-    bottom: 0;
-    left:0;
-    right:0;
-    height: 88;
-    line-height: 88;
-    background-color: #fff;
-    border-top-width: 1;
-    border-top-color: rgba(0,0,0,.15);
+    flex-wrap: wrap;
+    position: relative;
+    min-height: 400;
+    
   }
-  .btn-sm{
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-  }
-  .btn-sm-text{
-    color: #777;
-    font-size: 28;
-  }
-  .active{
-    color: #1ba1e2;
-  }
+  
 </style>
 
 <script>
-  import navbar from './include/navbar.vue';
-  var Amap = null;
+  import searchBar from './include/search-bar.vue';
+  import tabbar from './include/tab-bar.vue'
+  import footer from './include/footer.vue';
+  import cardItem from './components/card-item.vue';
   module.exports = {
     components: {
-      'navbar': navbar
+      'search-bar': searchBar,
+      'footer': footer,
+      'box-item': cardItem,
+      'tabbar': tabbar
     },
     data() {
+      var list = [];
+      for(var i=0; i<20; i++) {
+        list.push({
+          id: i + 1,
+          name: '商品' + (i+1),
+          shareCount: '1' + i + '.3' + i + 'K',  
+        });
+      }
       return {
-        keys: {
-          h5:'f4b99dcd51752142ec0f1bdcb9a8ec02',
-          ios: '',
-          android: 'db6a973159cb0c2639ad02c617a786ae'
-        },
-        pos: [104.093731,30.675117],
-        zoom: 13,
-        search: {
-          city: '成都'
-        },
-        place: '',
-        markers: [],
-        type: ''
+        list: list,
+        tabs: [
+          {
+            name: 'Tab1'
+          },
+          {
+            name: 'Tab2'
+          },
+          {
+            name: 'Tab3'
+          }
+        ]
       };
     },
     methods: {
