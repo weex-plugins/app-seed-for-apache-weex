@@ -48,11 +48,12 @@ function walk(dir) {
 }
 
 walk();
-
+// webpack 2.0
 const webConfig = {
+  context: pathTo.join(__dirname, ''),
   entry: entry,
   output: {
-    path: 'dist',
+    path: pathTo.join(__dirname, 'dist'),
     filename: '[name].js'
   },
   module: {

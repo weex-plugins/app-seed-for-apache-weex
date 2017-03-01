@@ -6,6 +6,9 @@
     "globals":{
       "weex": 1
     },
+    "env": {
+        "browser": 1
+    },
     "rules": {
         "func-names": 0,
         "comma-dangle": 0,

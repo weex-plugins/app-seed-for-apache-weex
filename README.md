@@ -1,9 +1,9 @@
-# weex-app-start-kit
+# weex-app-seed
 
 [![npm](https://img.shields.io/npm/v/weex-app-seed.svg?maxAge=2592000)]()
 ![Node Version](https://img.shields.io/node/v/weex-app-seed.svg "Node Version")
 
-weex-app-start-kit是一款用于快速创建weex vue项目的模版。
+weex-app-seed是一款用于快速创建weex vue项目的模版。
 
 <img width="320px" src="shots/shot1.png" />
 
