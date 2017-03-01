@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <navbar title="WEEX-APP-START-KIT"></navbar>
+    <navbar title="WEEX-APP-SEED"></navbar>
     <scroller class="map">
       <loading-item v-for="item in list" :key="item.id" url="./pages/article.js"></loading-item>
     </scroller>

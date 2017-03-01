@@ -54,7 +54,7 @@ const webConfig = {
   entry: entry,
   output: {
     path: pathTo.join(__dirname, 'dist'),
-    filename: '[name].js'
+    filename: '[name].js',
   },
   module: {
     rules: [
@@ -79,7 +79,8 @@ const weexConfig = {
   entry: weexEntry,
   output: {
     path: 'dist',
-    filename: '[name].weex.js'
+    filename: '[name].weex.js',
+    
   },
   module: {
     rules: [
