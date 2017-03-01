@@ -58,7 +58,7 @@ export default {
       items: [
         {
           name: 'Home',
-          url: 'home.js',
+          url: 'index.js',
           icon: 'http://img1.vued.vanthink.cn/vued40a1db1fb50417e72fc59c3535de9d1f.png'
         },
         {

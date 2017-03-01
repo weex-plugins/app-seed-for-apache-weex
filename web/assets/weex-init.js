@@ -25,6 +25,6 @@
   } else {
     var bundle = document.createElement('script');
     bundle.src = page;
-   // document.body.appendChild(bundle);
+    document.body.appendChild(bundle);
   }
 })();

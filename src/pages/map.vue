@@ -2,7 +2,7 @@
   <div class="container">
     <navbar back="true" title="Beijing China"></navbar>
     <weex-amap class="map" id="map2017" :search="search" :sdk-key="keys" :zoom=zoom :center="pos">
-      <weex-amap-marker :position="marker.position" :title="marker.title"></weex-amap-marker>
+      <weex-amap-marker visible="true" v-for="item in markers"  :position="item.position" :title="item.title"></weex-amap-marker>
     </weex-amap>
   </div>
 </template>
@@ -46,10 +46,10 @@
       return {
         pos: [104.093731,30.675117],
         zoom: 15,
-        marker: {
+        markers: [{
           position: [104.193731,30.675117],
           title: 'Tom\' house'
-        },
+        }],
       };
     }
   }

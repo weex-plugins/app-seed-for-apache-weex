@@ -30,10 +30,11 @@ export default {
     let base = nativeBase;
     if (typeof navigator !== 'undefined' && (navigator.appCodeName === 'Mozilla' || navigator.product === 'Gecko')) {
       // check if in weexpack project
-      if (path === 'web') {
+      console.log(path);
+      if (path === 'web' || path === 'dist') {
         base = h5Base + '/dist/';
       } else {
-        base = h5Base;
+        base = h5Base + '/';
       }
     } else {
       base = nativeBase + path + '/';

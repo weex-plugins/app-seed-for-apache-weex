@@ -124,7 +124,7 @@
     methods: {
       openMap() {
         const url = helper.setBundleUrl('pages/map.js', weex);
-        navigator.push({
+        naviagtor.push({
           url: url
         })
       }

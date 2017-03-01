@@ -20,7 +20,7 @@ weex-app-seed是一款用于快速创建weex vue项目的模版。
 
 *   提供一些基本定义的组件实现包括，icon，navbar, tabbar等。
 
-*   使用webpack dev server 支持live reload 替换掉了本地的serve服务
+*   基于webpack2构建， 使用webpack dev server 支持live reload。
 
 *   集成<a href="https://github.com/weex-plugins/weex-amap">weex-amap</a>插件,可以直接使用地图插件。
 
