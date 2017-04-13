@@ -12,8 +12,7 @@ configs[0].devServer = {
   publicPath: '/dist/',
   watchContentBase: true,
   watchOptions: {
-    ignored: /node_modules/,
-    
+    ignored: /node_modules/
   }
 };
 configs[0].plugins.push(new webpack.HotModuleReplacementPlugin());
