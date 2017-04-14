@@ -2,60 +2,33 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Weex Preview</title>
+  <title>weex-vue-demo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-touch-fullscreen" content="yes">
   <meta name="format-detection" content="telephone=no, email=no">
-  <link rel="stylesheet" href="./assets/style.css">
-  <script src="./assets/qrcode.js"></script>
-  <script src="../node_modules/vue/dist/vue.js"></script>
+  <!-- <style>body > div { height: 100%; }</style> -->
+  <style>body::before { content: "1"; height: 1px; overflow: hidden; color: transparent; display: block; }</style>
+  <script src="../node_modules/vue/dist/vue.runtime.js"></script>
+  <script src="../node_modules/weex-vue-render/dist/index.js"></script>
 </head>
 <body>
-  <h1>Weex Preview</h1>
-  <div id="app"></div>
-  <template id="app-template">
-    <div id="app">
-      <div class="mock-phone">
-        <div class="inner">
-          <iframe id="preview" src="./weex.html"></iframe>
-        </div>
-        <div class="camera"></div>
-        <div class="earpiece"></div>
-        <div class="home-btn"></div>
-      </div>
-      <div id="qrcode">
-        <h2>QRCode</h2>
-        <a :href="val" target="_blank"><canvas ref="canvas" width="200" height="200"></canvas></a>
-        <p class="bundle-url"><a :href="val" target="_blank">{{val}}</a></p>
-      </div>
-    </div>
-  </template>
-  <script>
-    var protocol = location.protocol + '//';
-    var hostname = typeof CURRENT_IP === 'string' ? window.CURRENT_IP : location.hostname;
-    var port = location.port ? ':' + location.port : '';
-    function getUrlParam(key, searchStr) {
-      var reg = new RegExp('[?|&]' + key + '=([^&]+)');
-      searchStr = searchStr || location.search;
-      var match = searchStr.match(reg);
-      return match && match[1];
-    }
-    var page = getUrlParam('page') || 'dist/index.js';
-    
-    
-    
-    var url = protocol + hostname + port + '/' + page.replace(/\.js$/,'.weex.js') ;
-    new Vue({
-      el: '#app',
-      template: '#app-template',
-      data: { val: url },
-      mounted: function () {
-        var qrcodedraw = new QRCodeLib.QRCodeDraw()
-        qrcodedraw.draw(this.$refs.canvas, this.val, function () {})
-      }
-    })
-  </script>
+  <div id="root"></div>
+<script>
+  (function () {
+    function getUrlParam (key) {
+      var reg = new RegExp('[?|&]' + key + '=([^&]+)')
+      var match = location.search.match(reg)
+      return match && match[1]
+    };
+    var page = getUrlParam('page') || '/dist/index.js';
+    var bundle = document.createElement('script')
+    // only for web
+    bundle.src = page.replace(/\.js$/, '.web.js')
+    document.body.appendChild(bundle)
+  })();
+</script>
+
 </body>
 </html>

@@ -2,19 +2,17 @@ const pathTo = require('path');
 const fs = require('fs-extra');
 const webpack = require('webpack');
 
+
+const needWeb = process.argv;
+
+console.log(needWeb);
+
 const entry = {};
 const weexEntry = {};
 const vueWebTemp = 'temp';
 const hasPluginInstalled = fs.existsSync('./web/plugin.js');
 
-const plugins = [
-  new webpack.optimize.UglifyJsPlugin({minimize: true}),
-  new webpack.BannerPlugin({
-    banner: '// { "framework": "Vue" } \n',
-    raw: true,
-    exclude: 'Vue'
-  })
-];
+
 
 function getEntryFileContent(entryPath, vueFilePath) {
   const relativePath = pathTo.relative(pathTo.join(entryPath, '../'), vueFilePath);
@@ -29,6 +27,8 @@ function getEntryFileContent(entryPath, vueFilePath) {
   return contents;
 }
 
+var fileType = '';
+
 function walk(dir) {
   dir = dir || '.';
   const directory = pathTo.join(__dirname, 'src', dir);
@@ -37,13 +37,22 @@ function walk(dir) {
       const fullpath = pathTo.join(directory, file);
       const stat = fs.statSync(fullpath);
       const extname = pathTo.extname(fullpath);
-      if (stat.isFile() && extname === '.vue') {
-        const entryFile = pathTo.join(vueWebTemp, dir, pathTo.basename(file, extname) + '.js');
-        fs.outputFileSync(pathTo.join(entryFile), getEntryFileContent(entryFile, fullpath));
+      if (stat.isFile() && extname === '.vue' || extname === '.we') {
+        if (!fileType) {
+          fileType = extname;
+        }
+        if (fileType && extname !== fileType) {
+          console.log('Error: This is not a good practice when you use ".we" and ".vue" togither!');
+        }
         const name = pathTo.join(dir, pathTo.basename(file, extname));
+        if (extname === '.vue') {
+          const entryFile = pathTo.join(vueWebTemp, dir, pathTo.basename(file, extname) + '.js');
+          fs.outputFileSync(pathTo.join(entryFile), getEntryFileContent(entryFile, fullpath));
+          
+          entry[name] = pathTo.join(__dirname, entryFile) + '?entry=true';
+        } 
         weexEntry[name] = fullpath + '?entry=true';
-        entry[name] = pathTo.join(__dirname, entryFile) + '?entry=true';
-      } else if (stat.isDirectory() && file !== 'build' && file !== 'include') {
+      } else if (stat.isDirectory() && file !== 'build' && file !== 'include' && file !== 'components') {
         const subdir = pathTo.join(dir, file);
         walk(subdir);
       }
@@ -51,15 +60,25 @@ function walk(dir) {
 }
 
 walk();
-// webpack 2.0
+console.log(entry);
+// web need vue-loader
+const plugins = [
+  new webpack.optimize.UglifyJsPlugin({minimize: true}),
+  new webpack.BannerPlugin({
+    banner: '// { "framework": ' + (fileType === '.vue' ? '"Vue"' : '"Weex"') + '} \n',
+    raw: true,
+    exclude: 'Vue'
+  })
+];
 const webConfig = {
   context: pathTo.join(__dirname, ''),
   entry: entry,
   output: {
     path: pathTo.join(__dirname, 'dist'),
-    filename: '[name].js',
+    filename: '[name].web.js',
   },
   module: {
+    // webpack 2.0 
     rules: [
       {
         test: /\.js$/,
@@ -82,7 +101,7 @@ const weexConfig = {
   entry: weexEntry,
   output: {
     path: pathTo.join(__dirname, 'dist'),
-    filename: '[name].weex.js',
+    filename: '[name].js',
   },
   module: {
     rules: [
@@ -98,10 +117,21 @@ const weexConfig = {
         use: [{
           loader: 'weex-loader'
         }]
+      },
+      {
+        test: /\.we(\?[^?]+)?$/,
+        use: [{
+          loader: 'weex-loader'
+        }]
       }
     ]
   },
   plugins: plugins,
 };
 
-module.exports = [webConfig, weexConfig];
+var exports = [webConfig, weexConfig];
+
+if (fileType === '.we') {
+  exports = weexConfig;
+}
+module.exports = exports;
